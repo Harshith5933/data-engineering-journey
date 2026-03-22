@@ -1,0 +1,46 @@
+NOTES ON JOINS 
+
+
+RIGHT AND LEFT JOINS 
+
+## Mental Model
+
+Think in terms of "which table is preserved":
+
+LEFT JOIN → preserve left table  
+RIGHT JOIN → preserve right table  
+
+Instead of remembering both, focus on:
+"Which table do I want to preserve?"
+
+
+  
+LEFT JOIN and RIGHT JOIN are mirror operations.                                               
+                                                                                      
+A RIGHT JOIN can always be rewritten as a LEFT JOIN by swapping table positions.      
+So in practice, mastering LEFT JOIN is sufficient for most use cases.                 
+
+
+  
+## Equivalence Example
+
+  -- RIGHT JOIN
+SELECT *
+FROM A
+RIGHT JOIN B
+ON A.id = B.id;
+
+-- Equivalent LEFT JOIN
+SELECT *
+FROM B
+LEFT JOIN A
+ON A.id = B.id;
+
+
+## Why This Works
+
+LEFT JOIN → keeps all rows from the left table  
+RIGHT JOIN → keeps all rows from the right table  
+
+So:
+A RIGHT JOIN B  ≡  B LEFT JOIN A
