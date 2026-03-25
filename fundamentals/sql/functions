@@ -1,0 +1,87 @@
+What are User Defined Functions?
+
+User Defined Functions (UDFs) are custom functions created by users to encapsulate reusable logic in SQL.
+
+They:
+  Accept inputs (parameters)
+  Perform operations
+  Return a value
+
+Scalar UDF
+        Returns a single value, Must specify RETURNS
+
+        ex:   DELIMITER $$
+              CREATE FUNCTION get_bonus(salary INT)                                usage:
+              RETURNS INT                                                          SELECT name, get_bonus(salary)
+              DETERMINISTIC                                                        FROM Employees;
+              BEGIN
+              RETURN salary * 0.10;
+              END $$
+              DELIMITER ;
+
+Table-Valued UDF
+        Returns a table of content
+
+        Ex:  CREATE FUNCTION get_high_salary()
+             RETURNS TABLE                                                         usage:
+             AS                                                                    SELECT * FROM get_high_salary();
+             RETURN (
+                     SELECT * FROM Employees
+                     WHERE salary > 50000
+              );
+
+
+Pre-Defined Functions:
+  1. Aggregate Functions: Operate on multiple rows → return a single value.
+
+            Function	    Description
+            COUNT()	    Number of rows
+            SUM()	        Total sum
+            AVG()	       Average value
+            MIN()	      Smallest value
+            MAX()        Largest value
+
+      
+2.Scalar (Single-row) Functions: Operate on each row individually.
+      Categories of Scalar Functions
+        a) String Functions
+           Function	        Description
+            UPPER()	    Converts to uppercase
+            LOWER()	    Converts to lowercase
+            LENGTH()	    Returns string length
+          SUBSTRING()	  Extracts part of string
+            TRIM()	       Removes spaces
+
+
+        b) Numeric Functions
+              Function	          Description
+              ROUND()	           Rounds value
+              CEIL() / CEILING()	Rounds up
+              FLOOR()	           Rounds down
+              ABS()	            Absolute value
+      
+      
+       c) Date Functions
+              Function             	Description
+              NOW()	            Current date & time
+              CURDATE()	            Current date
+              DATEDIFF()	    Difference between dates
+              DATE_ADD()	          Add interval
+      
+      
+       d) Conditional Functions
+             SELECT name,
+              CASE 
+                WHEN salary > 50000 THEN 'High'
+                ELSE 'Low'
+              END AS salary_category
+            FROM Employees;
+
+
+
+            
+                                                             Key Differences
+                                         Type	                                Works On	Returns
+                                      ---------------------------------------------------------------
+                                        Aggregate	                        Multiple rows	Single value
+                                        Scalar	                          Each row	One value per row
